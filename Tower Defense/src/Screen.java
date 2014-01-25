@@ -8,9 +8,9 @@ public class Screen extends JPanel implements Runnable
 {
 	public static int myWidth,myHeight;
 	
-	public static Image[] tileSet_Grass = new Image[100];  // 
-	public static Image[] tileSet_Air = new Image[100];  //
-	public static Image[] tileSet_res = new Image[100];
+	public static Image[] tileSet_Grass = new Image[100];
+	public static Image[] tileSet_Air   = new Image[100]; 
+	public static Image[] tileSet_res   = new Image[100];
 	
 	public static boolean isFirst = true; //for the first run through
 	
@@ -27,6 +27,11 @@ public class Screen extends JPanel implements Runnable
 		frame.addMouseListener(new KeyHandel());
 		frame.addMouseMotionListener(new KeyHandel());
 		thread.start();//starts the thread
+	}
+	
+	public void addEnemy()
+	{
+		
 	}
 	
 	public void define()//
@@ -50,7 +55,7 @@ public class Screen extends JPanel implements Runnable
 		
 		tileSet_res[0] = new ImageIcon("res/cell.png").getImage();
 		
-		save.loadSave(new File("Save/Level1"));//opens level change number to change level
+		save.loadDefault();//opens level change number to change level
 		
 	}
 	public void paintComponent(Graphics g)//opens paint
@@ -69,7 +74,7 @@ public class Screen extends JPanel implements Runnable
 		g.drawLine(room.block[0][room.worldWidth-1].x + room.blockSize ,0, room.block[0][room.worldWidth-1].x + room.blockSize, room.block[room.worldHeight -1][0].y + room.blockSize);//draw left line
 		g.drawLine(room.block[0][0].x, room.block[room.worldHeight-1][0].y + room.blockSize, room.block[0][room.worldWidth-1].x + room.blockSize,room.block[room.worldHeight-1][0].y +room.blockSize);//draw bottom line
 		room.draw(g); // drawing the room
-		store.draw(g);//drawing th store
+		store.draw(g);//drawing the store
 	}
 	
 	public void run()//runs the game

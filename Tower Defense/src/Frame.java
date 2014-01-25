@@ -3,7 +3,6 @@ import javax.swing.*;
 
 public class Frame extends JFrame
 {
-	
 	public static String title = "Save the King";//title of game/file
 	public static Dimension size = new Dimension(700,550);//dimensions of frame
 	public Frame()        //constructor
@@ -28,6 +27,5 @@ public class Frame extends JFrame
 	public static void main(String [] args)
 	{
 		Frame frame = new Frame();//runs frame
-	}
-	
+	}	
 }

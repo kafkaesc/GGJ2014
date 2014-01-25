@@ -2,16 +2,15 @@ import java.awt.*;
 public class Room
 {
 	
-	public int worldWidth = 12;//sets the width of the world
-	public int worldHeight = 8;//sets the height of the world
-	public int blockSize = 52;//sets the size of each block
-	public Block [][] block;//craetes a 2d array for the blocks
+	public int worldWidth  = 14;  //sets the width of the world
+	public int worldHeight = 8;   //sets the height of the world
+	public int blockSize   = 52; //sets the size of each block
+	public Block [][] block;      //craetes a 2d array for the blocks
 			
 	public Room()
 	{
 		define();//calls define
 	}
-		
 	
 	public void define() //defines the room
 	{
