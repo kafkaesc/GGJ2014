@@ -34,6 +34,15 @@ public class Screen extends JPanel implements Runnable
 		room.block[0][0].grassID = 2;
 	}
 	
+	public void enemyMarch(int r, int c)
+	{
+		if(room.block[r][c].grassID != 0)
+		{
+			room.block[r][c].grassID = 0;
+			room.block[r+1][c].grassID = 2;
+		}	
+	}
+	
 	public void define()//
 	{
 		room = new Room();//creates a new room
@@ -85,6 +94,7 @@ public class Screen extends JPanel implements Runnable
 			{
 				room.physics(); //runs the physics engine
 				addEnemy();
+				enemyMarch(0, 0);
 			}
 			repaint();//repaints
 			try{
