@@ -5,7 +5,7 @@ public class Room
 	public int worldWidth  = 14;  //sets the width of the world
 	public int worldHeight = 8;   //sets the height of the world
 	public int blockSize   = 52; //sets the size of each block
-	public Block [][] block;      //craetes a 2d array for the blocks
+	public Block [][] block;      //creates a 2d array for the blocks
 			
 	public Room()
 	{
@@ -25,11 +25,11 @@ public class Room
 	}
 	public void draw(Graphics g)
 	{
-		for(int y = 0;y<block.length;y++)//loops through columnns
+		for(int y = 0; y<block.length; y++)  //loops through columnns
 		{
-			for(int x = 0; x<block[0].length;x++)//loops thorugh rows
+			for(int x = 0; x < block[0].length; x++)  //loops thorugh rows
 			{
-				block[y][x].draw(g);//draws the block 2d array
+				block[y][x].draw(g, block[y][x].groundID);  //draws the block 2d array
 			}
 		}
 	}

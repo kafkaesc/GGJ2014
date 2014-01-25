@@ -1,13 +1,15 @@
 import java.io.*;
 import java.util.*;
+
 public class Save 
 {
 	public void loadDefault()
 	{
 		for(int x = 0; x < 14; x++)
 			for(int y = 0; y < 8; y++)
-				Screen.room.block[y][x].grassID = 0;
+				Screen.room.block[y][x].groundID = 0;
 	}
+	
 	public void loadSave(File loadPath)
 	{
 		try{
@@ -19,7 +21,7 @@ public class Save
 				{
 					for(int x = 0; x<Screen.room.block[0].length;x++)
 					{
-						Screen.room.block[y][x].grassID = sc.nextInt();
+						Screen.room.block[y][x].groundID = sc.nextInt();
 					}
 				}
 				

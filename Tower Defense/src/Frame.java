@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class Frame extends JFrame
 {
-	public static String title = "Save the King";//title of game/file
+	public static String title = "Cold War";//title of game/file
 	public static Dimension size = new Dimension(750,550);//dimensions of frame
 	public Frame()        //constructor
 	{

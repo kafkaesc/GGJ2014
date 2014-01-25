@@ -17,9 +17,14 @@ public class Store
 	
 	public void define()
 	{
-		for(int i = 0;i<button.length;i++)
+		for(int i = 0; i < button.length; i++)
 		{
-			button[i] = new Rectangle((Screen.myWidth/2) - ((shopWidth * (buttonSize + cellSpace))/2) + ((buttonSize + cellSpace) * i), Screen.room.block[Screen.room.worldHeight-1][0].y + Screen.room.blockSize + cellSpace + awayFromRoom, buttonSize, buttonSize);
+			button[i] = new Rectangle((Screen.myWidth/2) - 
+					((shopWidth * (buttonSize + cellSpace))/2) + 
+					((buttonSize + cellSpace) * i), 
+					Screen.room.block[Screen.room.worldHeight-1][0].y + 
+					Screen.room.blockSize + cellSpace + 
+					awayFromRoom, buttonSize, buttonSize);
 		}
 	}
 	

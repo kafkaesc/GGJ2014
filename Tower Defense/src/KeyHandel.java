@@ -8,7 +8,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		//Screen.mse.
 	}
 
 	@Override
@@ -34,13 +34,15 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		Screen.mse = new Point((e.getX()) + ((Frame.size.width - Screen.myWidth)/2) ,(e.getY()) + ((Frame.size.height - Screen.myWidth)/2));	
+		Screen.mse = new Point((e.getX()) + ((Frame.size.width - Screen.myWidth)/2), 
+				(e.getY()) + ((Frame.size.height - Screen.myWidth)/2));	
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		Screen.mse = new Point((e.getX()) + ((Frame.size.width - Screen.myWidth)/2) ,(e.getY()) + ((Frame.size.height - Screen.myWidth)/2) +50);
+		Screen.mse = new Point((e.getX()) + ((Frame.size.width - Screen.myWidth)/2), 
+				(e.getY()) + ((Frame.size.height - Screen.myWidth)/2) +50);
 	}
 
 }
