@@ -31,7 +31,7 @@ public class Screen extends JPanel implements Runnable
 	
 	public void addEnemy()
 	{
-		
+		room.block[0][0].grassID = 2;
 	}
 	
 	public void define()//
@@ -83,8 +83,8 @@ public class Screen extends JPanel implements Runnable
 		{
 			if(!isFirst)// if not the first
 			{
-				room.physics();//runs the physics engine
-
+				room.physics(); //runs the physics engine
+				addEnemy();
 			}
 			repaint();//repaints
 			try{
