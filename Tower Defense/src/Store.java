@@ -34,7 +34,7 @@ public class Store
 		{
 			if(button[i].contains(Screen.mse))
 			{
-				g.setColor(new Color(255,255,255, 100));
+				g.setColor(new Color(130,130,110, 100));
 				g.fillRect(button[i].x, button[i].y, button[i].width, button[i].height);
 			}
 			g.fillRect(/*Screen.tileSet_res[0], */button[i].x, button[i].y, button[i].width, button[i].height /*,null*/);

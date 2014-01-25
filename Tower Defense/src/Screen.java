@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.*;
@@ -26,7 +28,10 @@ public class Screen extends JPanel implements Runnable
 	public static Room floor;   // the floor characters move on
 	public static Save save;    // for save file
 	public static Store store;
+	public static int prevCommand;
+	public static int command = -1;
 
+	
 	public Screen(Frame frame)   // for the screen
 	{
 		frame.addMouseListener(new KeyHandel());
@@ -73,7 +78,7 @@ public class Screen extends JPanel implements Runnable
 			{
 				attack(r, c, r+1, c);
 			}
-			else if(room.block[r+1][c].groundID >= 0 || 
+			else if(room.block[r+1][c].groundID >= 0 && 
 					room.block[r+1][c].groundID <= 2)
 			{
 				room.block[r+1][c].groundID = room.block[r][c].groundID;
@@ -134,30 +139,35 @@ public class Screen extends JPanel implements Runnable
 		}
 		g.setColor(new Color(100,100,100));
 		g.fillRect(0, 0, getWidth(), getHeight());//clears the rectangle
-		g.setColor(new Color (0,0,0));
+		g.setColor(new Color (50,50,50));
 		g.drawLine(room.block[0][0].x -1 ,0, room.block[0][0].x-1, room.block[room.worldHeight -1][0].y + room.blockSize); // draw right line
 		g.drawLine(room.block[0][room.worldWidth-1].x + room.blockSize ,0, room.block[0][room.worldWidth-1].x + room.blockSize, room.block[room.worldHeight -1][0].y + room.blockSize);//draw left line
 		g.drawLine(room.block[0][0].x, room.block[room.worldHeight-1][0].y + room.blockSize, room.block[0][room.worldWidth-1].x + room.blockSize,room.block[room.worldHeight-1][0].y +room.blockSize);//draw bottom line
 		room.draw(g);   // drawing the room
 		store.draw(g);  // drawing the store
 	}
+	
+
 
 	public void run()      //runs the game
 	{
 		// get the random number generator
 		// create the first few random creatures
+	    addMouseListener(new KeyHandel());
+
 		Random r = new Random();
 		int enemyID[]     = new int[3];
 		int coordinates[] = new int[3];
 		for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
-		
+			
 		while(true)        // game loop
 		{
+
 			if(!isFirst)    // if not the first
 			{
 				for(int i = room.block.length - 1; i >= 0; i--)
 				{
-					for(int j = 0; j < room.block[i].length; j++)
+					for(int j = room.block[i].length-1; j >= 0; j--)
 					{
 						enemyMarch(i, j);
 					}
@@ -166,23 +176,25 @@ public class Screen extends JPanel implements Runnable
 				// randomly add new enemy units (they move next turn)
 				r = new Random();
 				for(int i = 0; i < 3; i++) enemyID[i] = pickSnowmanID();
-				System.out.println(enemyID[0]);
-				System.out.println(enemyID[1]);
-				System.out.println(enemyID[2]);
+//				System.out.println(enemyID[0]);
+//				System.out.println(enemyID[1]);
+//				System.out.println(enemyID[2]);
 
+
+
+				for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
 				
 				addEnemy(0, coordinates[0], enemyID[0]);
 				addEnemy(0, coordinates[1], enemyID[1]);
 				addEnemy(0, coordinates[2], enemyID[2]);
-				
-				for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
-				
 				boolean wait = true;
+				int temp1;
 				while(wait)
 				{
-					Scanner sc = new Scanner(System.in);
-					String eh = sc.next();
-					if(eh.equals("n"))
+					temp1 = command;
+					System.out.print("");
+//					System.out.println("LOOK HERE : " + command + " and " + temp1);
+					if(temp1 != command)
 					{
 						isRed = !isRed;
 						wait = false;
@@ -192,7 +204,9 @@ public class Screen extends JPanel implements Runnable
 			}
 			repaint();      // repaints
 			try{
-				thread.sleep(1);
+				Thread.sleep(1);
+				repaint();      // repaints
+
 			} catch(Exception e) {}
 		}
 

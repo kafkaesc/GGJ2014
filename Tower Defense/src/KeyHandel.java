@@ -8,7 +8,12 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//Screen.mse.
+		if(e.getX() >=160 && e.getX() <= 590 && e.getY() <= 501 && e.getY() >= 449)
+		{
+			Screen.prevCommand = Screen.command;
+			Screen.command++;
+			System.out.println(Screen.command);
+		}
 	}
 
 	@Override
