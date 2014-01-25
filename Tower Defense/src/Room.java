@@ -19,7 +19,7 @@ public class Room
 		{
 			for(int x = 0; x<block[0].length;x++)//loops through rows
 			{
-				block[y][x] = new Block((Screen.myWidth/2) - ((worldWidth*blockSize)/2) + (x*blockSize) , y*blockSize ,blockSize, blockSize ,Value.groundGrass, Value.airAir);
+				block[y][x] = new Block((Screen.myWidth/2) - ((worldWidth*blockSize)/2) + (x*blockSize) , y*blockSize ,blockSize, blockSize , Value.mars1, Value.airAir);
 			}
 		}
 	}

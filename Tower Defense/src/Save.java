@@ -3,11 +3,20 @@ import java.util.*;
 
 public class Save 
 {
-	public void loadDefault()
+	public void loadFloor()
 	{
+		Random r = new Random();
+		int terrainSource = r.nextInt(3);
 		for(int x = 0; x < 14; x++)
+		{
 			for(int y = 0; y < 8; y++)
-				Screen.room.block[y][x].groundID = 0;
+			{
+				Screen.floor.block[y][x].groundID = terrainSource;
+				Screen.room.block[y][x].groundID = terrainSource;
+				terrainSource = r.nextInt(3);
+				System.out.println(terrainSource + ", ");
+			}
+		}
 	}
 	
 	public void loadSave(File loadPath)
