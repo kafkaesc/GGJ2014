@@ -8,7 +8,7 @@ public class Player {
 	
 	Player()
 	{
-		life  = 50;
+		life  = 100;
 		resources = 20;
 		isRed = false;
 	}

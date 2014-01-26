@@ -14,7 +14,7 @@ public class Value //creates level
 	
 	// 5 start ints are spacemen
 	public static int basic      = 50;  // basic
-	public static int westerm    = 51;  // western
+	public static int western    = 51;  // western
 	public static int blowdryer  = 52;  // blowdryer
 	public static int toaster0   = 53;  // toaster (none trapped)
 	public static int toaster1   = 54;  // toaster ( one trapped)	
