@@ -1,3 +1,6 @@
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -52,12 +55,50 @@ public class Screen extends JPanel implements Runnable
 	// r2, c2 => the defender
 	public void attack(int r1, int c1, int r2, int c2)
 	{
-		if((room.block[r1][c1].groundID >= 30 &&
-			room.block[r1][c1].groundID <= 39) &&
-			room.block[r2][c2].groundID == Value.toaster0)
+		if(room.block[r1][c1].groundID >= 30 &&
+				room.block[r1][c1].groundID <= 39)
 		{
-			room.block[r1][c1].groundID = floor.block[r1][c1].groundID;
-			room.block[r2][c2].groundID = Value.toaster1;
+			// if the attacker is a snowgoon
+			if(room.block[r2][c2].groundID == Value.toaster0 || 
+					room.block[r2][c2].groundID == Value.toaster0)
+			{
+				// if the defender is a toaster, snowgoon dies
+				// increment or destroy the toaster
+				kill(r1, c1);
+				room.block[r2][c2].groundID = Value.toaster1;
+			}
+		}
+		else if(room.block[r1][c1].groundID >= 50 &&
+				room.block[r1][c1].groundID <= 59)
+		{
+			// if the attacker is an astronaut
+			if(room.block[r1][c1].groundID == Value.basic)
+			{
+
+			}
+			if(room.block[r1][c1].groundID == Value.western)
+			{
+				// check for friendly fire!
+				if(room.block[r2-1][c2-1].groundID >= 30 &&
+						room.block[r2-1][c2-1].groundID <= 39)
+				{
+					kill(r2 - 1, c2 - 1);
+				}
+				if(room.block[r2-1][c2].groundID >= 30 &&
+						room.block[r2-1][c2].groundID <= 39)
+				{
+					kill(r2 - 1, c2);
+				}
+				if(room.block[r2-1][c2+1].groundID >= 30 &&
+						room.block[r2-1][c2+1].groundID <= 39)
+				{
+					kill(r2 - 1, c2 + 1);
+				}
+			}
+			if(room.block[r1][c1].groundID == Value.blowdryer)
+			{
+				
+			}
 		}
 	}
 	
@@ -68,8 +109,14 @@ public class Screen extends JPanel implements Runnable
 		{
 			if(r == 7)
 			{
+				if(room.block[r][c].groundID == Value.snowman00) 
+					player.burn(1);
+				else if(room.block[r][c].groundID == Value.snowman01)
+					player.burn(6);
+				else if(room.block[r][c].groundID == Value.snowman02)
+					player.burn(16);
+				
 				room.block[r][c].groundID = floor.block[r][c].groundID;
-				// do damage
 			}
 			else if(room.block[r+1][c].groundID >= 50 && 
 					room.block[r+1][c].groundID <= 59)
@@ -80,6 +127,41 @@ public class Screen extends JPanel implements Runnable
 					room.block[r+1][c].groundID <= 2)
 			{
 				room.block[r+1][c].groundID = room.block[r][c].groundID;
+				room.block[r][c].groundID = floor.block[r][c].groundID;
+			}
+		}
+	}
+	
+	public void kill(int r, int c)
+	{
+		room.block[r][c].groundID = floor.block[r][c].groundID;
+	}
+	
+	public void unitMarch(int r, int c)
+	{
+		if(room.block[r][c].groundID >= 50 && 
+				room.block[r][c].groundID <= 59)
+		{
+			if(r == 0)
+			{
+				room.block[r][c].groundID = floor.block[r][c].groundID;
+			}
+			if(room.block[r][c].groundID == Value.toaster0 || 
+					room.block[r][c].groundID == Value.toaster1)
+			{
+				// toaster are traps, stay still
+			}
+			else if(room.block[r][c].groundID >= 30 && 
+					room.block[r][c].groundID <= 39)
+			{
+				// attack the snowgoon menace!
+				
+			}
+			else if(room.block[r+1][c].groundID >= 0 && 
+					room.block[r+1][c].groundID <= 2)
+			{
+				// march onward soldier!
+				room.block[r-1][c].groundID = room.block[r][c].groundID;
 				room.block[r][c].groundID = floor.block[r][c].groundID;
 			}
 		}
@@ -164,13 +246,16 @@ public class Screen extends JPanel implements Runnable
 
 			if(!isFirst)    // if not the first
 			{
+
 				for(int i = room.block.length - 1; i >= 0; i--)
-				{
 					for(int j = room.block[i].length-1; j >= 0; j--)
-					{
+						unitMarch(i, j);
+				
+				for(int i = room.block.length - 1; i >= 0; i--)
+					for(int j = room.block[i].length-1; j >= 0; j--)
 						enemyMarch(i, j);
-					}
-				}
+				
+				System.out.println("Life: " + player.checkLife());
 				
 				// randomly add new enemy units (they move next turn)
 				r = new Random();
@@ -194,7 +279,7 @@ public class Screen extends JPanel implements Runnable
 				}
 				addUnit(7, 4, Value.toaster0);
 			}
-			repaint();      // repaints
+			repaint();          // repaints
 			try{
 				Thread.sleep(1);
 				repaint();      // repaints
