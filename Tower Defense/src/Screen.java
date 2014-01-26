@@ -59,13 +59,18 @@ public class Screen extends JPanel implements Runnable
 				room.block[r1][c1].groundID <= 39)
 		{
 			// if the attacker is a snowgoon
-			if(room.block[r2][c2].groundID == Value.toaster0 || 
-					room.block[r2][c2].groundID == Value.toaster0)
+			if(room.block[r2][c2].groundID == Value.toaster0)
 			{
-				// if the defender is a toaster, snowgoon dies
-				// increment or destroy the toaster
+				// if the defender is a toaster0, the snowgoon is eaten
 				kill(r1, c1);
 				room.block[r2][c2].groundID = Value.toaster1;
+			}
+			else if(room.block[r2][c2].groundID == Value.toaster1)
+			{
+				// if the defender is a toaster1, the snowgoon 
+				// is eaten and the toaster disappears
+				kill(r1, c1);
+				kill(r2, c2);
 			}
 		}
 		else if(room.block[r1][c1].groundID >= 50 &&
@@ -79,20 +84,20 @@ public class Screen extends JPanel implements Runnable
 			if(room.block[r1][c1].groundID == Value.western)
 			{
 				// check for friendly fire!
-				if(room.block[r2-1][c2-1].groundID >= 30 &&
-						room.block[r2-1][c2-1].groundID <= 39)
+				if(room.block[r2][c2-1].groundID >= 30 &&
+						room.block[r2][c2-1].groundID <= 39)
 				{
-					kill(r2 - 1, c2 - 1);
+					kill(r2, c2 - 1);
 				}
-				if(room.block[r2-1][c2].groundID >= 30 &&
-						room.block[r2-1][c2].groundID <= 39)
+				if(room.block[r2][c2].groundID >= 30 &&
+						room.block[r2][c2].groundID <= 39)
 				{
-					kill(r2 - 1, c2);
+					kill(r2, c2);
 				}
-				if(room.block[r2-1][c2+1].groundID >= 30 &&
-						room.block[r2-1][c2+1].groundID <= 39)
+				if(room.block[r2][c2+1].groundID >= 30 &&
+						room.block[r2][c2+1].groundID <= 39)
 				{
-					kill(r2 - 1, c2 + 1);
+					kill(r2, c2 + 1);
 				}
 			}
 			if(room.block[r1][c1].groundID == Value.blowdryer)
@@ -144,21 +149,21 @@ public class Screen extends JPanel implements Runnable
 		{
 			if(r == 0)
 			{
-				room.block[r][c].groundID = floor.block[r][c].groundID;
+				kill(r, c);
 			}
 			if(room.block[r][c].groundID == Value.toaster0 || 
 					room.block[r][c].groundID == Value.toaster1)
 			{
 				// toaster are traps, stay still
 			}
-			else if(room.block[r][c].groundID >= 30 && 
-					room.block[r][c].groundID <= 39)
+			else if(room.block[r-1][c].groundID >= 30 && 
+					room.block[r-1][c].groundID <= 39)
 			{
 				// attack the snowgoon menace!
-				
+				attack(r, c, r-1, c);
 			}
-			else if(room.block[r+1][c].groundID >= 0 && 
-					room.block[r+1][c].groundID <= 2)
+			else if(room.block[r-1][c].groundID >= 0 && 
+					room.block[r-1][c].groundID <= 2)
 			{
 				// march onward soldier!
 				room.block[r-1][c].groundID = room.block[r][c].groundID;
@@ -247,12 +252,12 @@ public class Screen extends JPanel implements Runnable
 			if(!isFirst)    // if not the first
 			{
 
-				for(int i = room.block.length - 1; i >= 0; i--)
-					for(int j = room.block[i].length-1; j >= 0; j--)
+				for(int i = 0; i < room.block.length; i++)
+					for(int j = 0; j < room.block[i].length; j++)
 						unitMarch(i, j);
 				
 				for(int i = room.block.length - 1; i >= 0; i--)
-					for(int j = room.block[i].length-1; j >= 0; j--)
+					for(int j = room.block[i].length - 1; j >= 0; j--)
 						enemyMarch(i, j);
 				
 				System.out.println("Life: " + player.checkLife());
@@ -278,6 +283,7 @@ public class Screen extends JPanel implements Runnable
 					}
 				}
 				addUnit(7, 4, Value.toaster0);
+				addUnit(7, 9, Value.western);
 			}
 			repaint();          // repaints
 			try{
