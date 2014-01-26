@@ -246,8 +246,9 @@ public class Screen extends JPanel implements Runnable
 		int enemyID[]     = new int[3];
 		int coordinates[] = new int[3];
 		for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
-			
-		while(true)        // game loop
+		
+		boolean gameOver = false;
+		while(true && !gameOver)        // game loop
 		{
 
 			if(!isFirst)    // if not the first
@@ -272,14 +273,16 @@ public class Screen extends JPanel implements Runnable
 				addEnemy(0, coordinates[1], enemyID[1]);
 				addEnemy(0, coordinates[2], enemyID[2]);
 
-				boolean gameOver = false;
 				boolean turnOver = false;
 				while(command == -1 && !turnOver && !gameOver)
 				{
 					System.out.print("");
+					if(player.checkLife() == 0) break;
+					
 					if(command == 1)
 					{
 						turnOver = true;
+						repaint();
 					}
 					if(command == 2)
 					{
@@ -288,15 +291,18 @@ public class Screen extends JPanel implements Runnable
 					}
 					if(command == 3)
 					{
-						
+						addUnit(7, 2, Value.basic);
+						repaint();
 					}
 					if(command == 4)
 					{
-						
+						addUnit(7, 4, Value.blowdryer);
+						repaint();
 					}
 					if(command == 5)
 					{
-						
+						addUnit(7, 6, Value.western);
+						repaint();
 					}
 					if(command == 6)
 					{
