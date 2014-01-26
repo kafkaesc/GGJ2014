@@ -24,7 +24,6 @@ public class Block extends Rectangle
 	public Block(int x, int y, int width, int height, int grassID, int airID)//constructor takes in parameters
 	{
 		setBounds(x, y, width, height);//sets bounds
-		this.groundID = groundID;  //sets grassID
 		this.airID    = airID;     //sets AirID
 	}
 	
