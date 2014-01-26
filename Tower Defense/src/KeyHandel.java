@@ -10,11 +10,11 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 	public void mouseClicked(MouseEvent e) {
 		if(e.getX() >= 394 && e.getX() <= 446 && e.getY() <= 501 && e.getY() >= 449)
 		{
-			Screen.prevCommand = Screen.command;
-			Screen.command++;
+			Screen.command = 1;
 		}
 		if(e.getX() >= 447 && e.getX() <= 499 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 2;
 			System.out.println("B");
 		}
 		if(e.getX() >= 500 && e.getX() <= 552 && e.getY() <= 501 && e.getY() >= 449)

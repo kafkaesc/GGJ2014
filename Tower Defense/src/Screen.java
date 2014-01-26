@@ -271,20 +271,47 @@ public class Screen extends JPanel implements Runnable
 				addEnemy(0, coordinates[0], enemyID[0]);
 				addEnemy(0, coordinates[1], enemyID[1]);
 				addEnemy(0, coordinates[2], enemyID[2]);
-				boolean wait = true;
-				int temp1;
-				while(wait)
+
+				boolean gameOver = false;
+				boolean turnOver = false;
+				while(command == -1 && !turnOver && !gameOver)
 				{
-					temp1 = command;
 					System.out.print("");
-					if(temp1 != command)
+					if(command == 1)
+					{
+						turnOver = true;
+					}
+					if(command == 2)
 					{
 						player.switchGeneral();
-						wait = false;
+						repaint();
 					}
+					if(command == 3)
+					{
+						
+					}
+					if(command == 4)
+					{
+						
+					}
+					if(command == 5)
+					{
+						
+					}
+					if(command == 6)
+					{
+						
+					}
+					if(command == 7)
+					{
+						
+					}
+					if(command == 8)
+					{
+
+					}
+					command = -1;
 				}
-				addUnit(7, 4, Value.toaster0);
-				addUnit(7, 13, Value.western);
 			}
 			repaint();          // repaints
 			try{
