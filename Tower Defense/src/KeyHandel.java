@@ -10,6 +10,10 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("(x is " + e.getX() + ", Y is" + e.getY() + ")");
 		// clicks for the menu
+		if(Screen.gameOver && e.getX() >= 246 && e.getX()<=974&& e.getY() >=0&& e.getY() <=416)
+		{
+			System.exit(0);
+		}
 		if(Screen.Credits && e.getX() >= 246 && e.getX()<=974&& e.getY() >=0&& e.getY() <=416)
 		{
 			System.out.println("menu");
@@ -45,6 +49,11 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			System.out.println("Credits");
 			Screen.menu_bool = false;
 			Screen.Credits = true;
+		}
+		if(Screen.menu_bool && e.getX() >= 358 && e.getX()<=551&& e.getY() >=321&& e.getY() <=380)
+		{
+			System.out.println("Exit");
+			System.exit(0);
 		}
 		
 		if(Screen.menu_bool && e.getX() >= 344 && e.getX()<=612 && e.getY() >=44 && e.getY() <=93)

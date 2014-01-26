@@ -33,6 +33,7 @@ public class Screen extends JPanel implements Runnable
 	public static boolean instruction = false;
 	public static boolean how_to_play_bool = false;
 	public static boolean Credits = false;
+	
 
 
 	public static Point mse = new Point(0,0);
@@ -51,7 +52,7 @@ public class Screen extends JPanel implements Runnable
 	public static boolean selectedCol    = false;
 	public static boolean switchFlag = false;
 	public static boolean changeGen = true;
-	public boolean gameOver = false;
+	public static boolean gameOver = false;
 
 	public static int newUnit = 0;
 	public static int newCol  = 0;
@@ -362,7 +363,7 @@ public class Screen extends JPanel implements Runnable
 			for(int i = 1; i < 7; i++)
 				available[i] = true;
 		}
-		if (wallet >= 15 )
+		if (wallet >= 20 )
 		{
 			for(int i = 1; i < 8; i++)
 				available[i] = true;
@@ -471,7 +472,6 @@ public class Screen extends JPanel implements Runnable
 		int coordinates[] = new int[3];
 		for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
 
-		boolean gameOver = false;
 		while(!gameOver)        // game loop
 		{
 
