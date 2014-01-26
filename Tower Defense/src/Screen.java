@@ -151,7 +151,7 @@ public class Screen extends JPanel implements Runnable
 			{
 				kill(r, c);
 			}
-			if(room.block[r][c].groundID == Value.toaster0 || 
+			else if(room.block[r][c].groundID == Value.toaster0 || 
 					room.block[r][c].groundID == Value.toaster1)
 			{
 				// toaster are traps, stay still
