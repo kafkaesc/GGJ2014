@@ -15,30 +15,35 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 		if(e.getX() >= 447 && e.getX() <= 499 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 2;
-			System.out.println("B");
 		}
 		if(e.getX() >= 500 && e.getX() <= 552 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 3;
 			System.out.println("C");
 		}
 		if(e.getX() >= 553 && e.getX() <= 605 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 4;
 			System.out.println("D");
 		}
 		if(e.getX() >= 606 && e.getX() <= 658 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 5;
 			System.out.println("E");
 		}
 		if(e.getX() >= 659 && e.getX() <= 711 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 6;
 			System.out.println("F");
 		}
 		if(e.getX() >= 712 && e.getX() <= 764 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 7;
 			System.out.println("G");
 		}
 		if(e.getX() >= 765 && e.getX() <= 817 && e.getY() <= 501 && e.getY() >= 449)
 		{
+			Screen.command = 8;
 			System.out.println("H");
 		}
 	}
