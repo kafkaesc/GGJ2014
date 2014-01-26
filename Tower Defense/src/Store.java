@@ -25,7 +25,8 @@ public class Store
 	public static Image blowdryOff = new ImageIcon("Resources/Button/buttons_0004_blowdryer-OFF.png").getImage();
 	public static Image western    = new ImageIcon("Resources/Button/buttons_0012_western-ON.png").getImage();
 	public static Image westernOff = new ImageIcon("Resources/Button/buttons_0011_western-OFF.png").getImage();
-	public static Image snowRed    = new ImageIcon("Resources/Snowgoon/snowmen_0001_red-R.png").getImage();
+	public static Image cherry     = new ImageIcon("Resources/Button/buttons_0016_cherry-ON.png").getImage();
+	public static Image cherryOff  = new ImageIcon("Resources/Button/buttons_0015_cherry-OFF.png").getImage();
 	public static Image toasterOff = new ImageIcon("Resources/Button/buttons_0000_toaster-OFF.png").getImage();
 	public static Image toaster    = new ImageIcon("Resources/Button/buttons_0001_toaster-ON.png").getImage();
 	public static Image blackholeOff  = new ImageIcon("Resources/Button/buttons_0002_blackhole-OFF.png").getImage();	
@@ -71,8 +72,8 @@ public class Store
 				if(av[4])g.drawImage(western, 609, 447,52 , 52, null);
 				else g.drawImage(westernOff, 609, 447,52 , 52, null);
 				
-				if (av[5])g.drawImage(snowRed, 663, 447,52 , 52, null);
-				else g.drawImage(snowRed, 663, 447,52 , 52, null);
+				if (av[5])g.drawImage(cherry, 663, 447,52 , 52, null);
+				else g.drawImage(cherryOff, 663, 447,52 , 52, null);
 				
 				if(av[6])g.drawImage(toaster, 717, 447,52 , 52, null);
 				else g.drawImage(toasterOff, 717, 447,52 , 52, null);

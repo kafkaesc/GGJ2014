@@ -18,4 +18,5 @@ public class Value //creates level
 	public static int blowdryer  = 52;  // blowdryer
 	public static int toaster0   = 53;  // toaster (none trapped)
 	public static int toaster1   = 54;  // toaster ( one trapped)	
+	public static int cherry     = 55;  // cherry-bomber
 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 public class Frame extends JFrame
 {
 	public static String title = "Cold War";//title of game/file
-	public static Dimension size = new Dimension(1220, 550);//dimensions of frame
+	public static Dimension size = new Dimension(1220, 730);//dimensions of frame
 	public Frame()        //constructor
 	{
 		setTitle(title);

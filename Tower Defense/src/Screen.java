@@ -43,7 +43,7 @@ public class Screen extends JPanel implements Runnable
 	
 	private static boolean[] available;
 	
-	Image bg = new ImageIcon("Resources/gameborder.png").getImage();
+	Image bg = new ImageIcon("Resources/Screens/gameborder-title.png").getImage();
 	
 	public Screen(Frame frame)   // for the screen
 	{
@@ -142,6 +142,76 @@ public class Screen extends JPanel implements Runnable
 				{
 					kill(r2 - 2, c2);
 					player.profit(1);
+				}
+			}
+			if(room.block[r1][c1].groundID == Value.cherry)
+			{
+				// check out of bounds and then FF
+				if(r2 >= 0)
+				{
+					if(room.block[r2][c2].groundID >= 30 && 
+							room.block[r2][c2].groundID <= 39)
+					{
+						kill(r2, c2);
+						player.profit(1);
+					}
+					if(c2 - 1 >= 0 && room.block[r2][c2-1].groundID >= 30 && 
+							room.block[r2][c2-1].groundID <= 39)
+					{
+						kill(r2, c2 - 1);
+						player.profit(1);
+					}
+					if(c2 + 1 < room.block[r2].length && 
+							room.block[r2][c2+1].groundID >= 30 && 
+							room.block[r2][c2+1].groundID <= 39)
+					{
+						kill(r2, c2 + 1);
+						player.profit(1);
+					}
+				}
+				if(r2 - 1 >= 0)
+				{
+					if(room.block[r2-1][c2].groundID >= 30 && 
+							room.block[r2-1][c2].groundID <= 39)
+					{
+						kill(r2 - 1, c2);
+						player.profit(1);
+					}
+					if(c2 - 1 >= 0 && room.block[r2-1][c2-1].groundID >= 30 && 
+							room.block[r2-1][c2-1].groundID <= 39)
+					{
+						kill(r2 - 1, c2 - 1);
+						player.profit(1);
+					}
+					if(c2 + 1 < room.block[r2-1].length && 
+							room.block[r2-1][c2+1].groundID >= 30 && 
+							room.block[r2-1][c2+1].groundID <= 39)
+					{
+						kill(r2 - 1, c2 + 1);
+						player.profit(1);
+					}
+				}
+				if(r2 - 2 >= 0)
+				{
+					if(room.block[r2-2][c2].groundID >= 30 && 
+							room.block[r2-2][c2].groundID <= 39)
+					{
+						kill(r2 - 2, c2);
+						player.profit(1);
+					}
+					if(c2 - 1 >= 0 && room.block[r2-2][c2-1].groundID >= 30 && 
+							room.block[r2-2][c2-1].groundID <= 39)
+					{
+						kill(r2 - 2, c2 - 1);
+						player.profit(1);
+					}
+					if(c2 + 1 < room.block[r2-2].length && 
+							room.block[r2-2][c2+1].groundID >= 30 && 
+							room.block[r2-2][c2-1].groundID <= 39)
+					{
+						kill(r2 - 2, c2 + 1);
+						player.profit(1);
+					}
 				}
 			}
 		}
@@ -301,7 +371,7 @@ public class Screen extends JPanel implements Runnable
 			isFirst = false;        //set to not first anymore
 		}
 		g.setColor(new Color(204, 204, 204));
-		g.drawImage(bg, 0 , 0, 1220, 550, null);
+		g.drawImage(bg, 0 , 0, 1220, 700, null);
 		g.setColor(new Color (50, 50, 50));
 		g.drawLine(room.block[0][0].x -1 ,0, room.block[0][0].x-1, room.block[room.worldHeight -1][0].y + room.blockSize); // draw right line
 		g.drawLine(room.block[0][room.worldWidth-1].x + room.blockSize ,0, room.block[0][room.worldWidth-1].x + room.blockSize, room.block[room.worldHeight -1][0].y + room.blockSize);//draw left line
@@ -408,7 +478,7 @@ public class Screen extends JPanel implements Runnable
 					{
 						activelyAdding = true;
 						while(!selectedCol) { System.out.print(""); }
-						addUnit(7, newCol, Value.western);
+						addUnit(7, newCol, Value.cherry);
 						activelyAdding = false;
 						selectedCol = false;
 						repaint();

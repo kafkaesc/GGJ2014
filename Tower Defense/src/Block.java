@@ -17,7 +17,8 @@ public class Block extends Rectangle
 	public static Image snowRed    = new ImageIcon("Resources/Snowgoon/snowmen_0001_red-R.png").getImage();
 	public static Image astroBasic = new ImageIcon("Resources/Astronaut/astronaut_0000_astronaut.png").getImage();
 	public static Image astroWest  = new ImageIcon("Resources/Astronaut/astronaut_0001_astronaut-western.png").getImage();	
-	public static Image astroHair  = new ImageIcon("Resources/Astronaut/astronaut_0002_astronaut-blowdryer.png").getImage();	
+	public static Image astroHair  = new ImageIcon("Resources/Astronaut/astronaut_0002_astronaut-blowdryer.png").getImage();
+	public static Image cherryBomb = new ImageIcon("Resources/Astronaut/astronaut_0003_astronaut-cherry.png").getImage();	
 	public static Image toaster0   = new ImageIcon("Resources/Weapon/weapons_0000_toaster-set.png").getImage();
 	public static Image toaster1   = new ImageIcon("Resources/Weapon/weapons_0001_toaster-caught-1.png").getImage();
 
@@ -70,6 +71,9 @@ public class Block extends Rectangle
 			break;
 		case 54:
 			g.drawImage(toaster1, x ,y, width, height, null);
+			break;
+		case 55:
+			g.drawImage(cherryBomb, x ,y, width, height, null);
 			break;
 		default:
 			g.drawImage(mars1, x ,y, width, height, null);
