@@ -31,6 +31,8 @@ public class Store
 	public static Image toaster    = new ImageIcon("Resources/Button/buttons_0001_toaster-ON.png").getImage();
 	public static Image blackholeOff  = new ImageIcon("Resources/Button/buttons_0002_blackhole-OFF.png").getImage();	
 	public static Image blackhole  = new ImageIcon("Resources/Button/buttons_0003_blackhole-ON.png").getImage();	
+	public static Image gameOver  = new ImageIcon("Resources/Screens/gameover.png").getImage();	
+
 	
 	public Store()
 	{
@@ -51,7 +53,7 @@ public class Store
 		}
 	}
 	
-	public void draw(Graphics g, boolean[] av, boolean Gen_to_draw)
+	public void draw(Graphics g, boolean[] av, boolean Gen_to_draw, boolean gameOverFlag)
 	{
 		for(int i = 0; i<button.length;i++)
 		{
@@ -85,5 +87,9 @@ public class Store
 //			g.fillRect(/*Screen.tileSet_res[0], */button[i].x, button[i].y, button[i].width, button[i].height /*,null*/);
 
 		}
+//		if(gameOverFlag)
+//		{
+//			g.drawImage(gameOver, 244 , 0, 245, 975, null);
+//		}
 	}
 }

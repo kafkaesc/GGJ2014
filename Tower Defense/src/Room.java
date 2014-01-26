@@ -34,9 +34,4 @@ public class Room
 		}
 	}
 	
-	public void physics()//physics engine
-	{
-		
-	}
-	
 }

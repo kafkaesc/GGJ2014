@@ -35,7 +35,8 @@ public class Screen extends JPanel implements Runnable
 	public static boolean activelyAdding = false;
 	public static boolean selectedCol    = false;
 	public static boolean switchFlag = false;
-	boolean changeGen = true;
+	public static boolean changeGen = true;
+	public static boolean gameOver = false;
 
 	public static int newUnit = 0;
 	public static int newCol  = 0;
@@ -377,7 +378,7 @@ public class Screen extends JPanel implements Runnable
 		g.drawLine(room.block[0][room.worldWidth-1].x + room.blockSize ,0, room.block[0][room.worldWidth-1].x + room.blockSize, room.block[room.worldHeight -1][0].y + room.blockSize);//draw left line
 		g.drawLine(room.block[0][0].x, room.block[room.worldHeight-1][0].y + room.blockSize, room.block[0][room.worldWidth-1].x + room.blockSize,room.block[room.worldHeight-1][0].y +room.blockSize);//draw bottom line
 		room.draw(g);   // drawing the room
-		store.draw(g, available, changeGen);  // drawing the store
+		store.draw(g, available, changeGen, gameOver);  // drawing the store
 	}
 	
 	public void run()      //runs the game
@@ -530,6 +531,7 @@ public class Screen extends JPanel implements Runnable
 
 			} catch(Exception e) {}
 		}
+		repaint();
 	}
 }
 

@@ -21,6 +21,8 @@ public class Block extends Rectangle
 	public static Image cherryBomb = new ImageIcon("Resources/Astronaut/astronaut_0003_astronaut-cherry.png").getImage();	
 	public static Image toaster0   = new ImageIcon("Resources/Weapon/weapons_0000_toaster-set.png").getImage();
 	public static Image toaster1   = new ImageIcon("Resources/Weapon/weapons_0001_toaster-caught-1.png").getImage();
+	public static Image gameOver   = new ImageIcon("Resources/Screens/gameover.png").getImage();
+
 
 	public Block(int x, int y, int width, int height, int grassID, int airID)//constructor takes in parameters
 	{
@@ -28,6 +30,10 @@ public class Block extends Rectangle
 		this.airID    = airID;     //sets AirID
 	}
 	
+	public void GameOver(Graphics g)
+	{
+		g.drawImage(gameOver, 0 ,0, 728, 416, null);
+	}
 	// in charge of drawing icons for all pieces and terrain
 	public void draw(Graphics g, int id)
 	{

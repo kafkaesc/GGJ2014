@@ -8,7 +8,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("(" + e.getX() + ", " + e.getY() + ")");
+		System.out.println("(x is " + e.getX() + ", Y is" + e.getY() + ")");
 		// clicks for the menu
 		if(e.getX() >= 394 && e.getX() <= 446 && e.getY() <= 501 && e.getY() >= 449)
 		{
