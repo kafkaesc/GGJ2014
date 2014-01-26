@@ -10,40 +10,83 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("(x is " + e.getX() + ", Y is" + e.getY() + ")");
 		// clicks for the menu
-		if(e.getX() >= 394 && e.getX() <= 446 && e.getY() <= 501 && e.getY() >= 449)
+		if(Screen.Credits && e.getX() >= 246 && e.getX()<=974&& e.getY() >=0&& e.getY() <=416)
+		{
+			System.out.println("menu");
+			Screen.menu_bool = true;
+			Screen.Credits = false;
+		}
+		if(Screen.how_to_play_bool && e.getX() >= 645 && e.getX()<=945&& e.getY() >=356&& e.getY() <=402)
+		{
+			System.out.println("menu");
+			Screen.how_to_play_bool = false;
+			Screen.menu_bool = true;
+		}
+		if(Screen.how_to_play_bool && e.getX() >= 266 && e.getX()<=393&& e.getY() >=350&& e.getY() <=400)
+		{
+			System.out.println("instructions");
+			Screen.how_to_play_bool = false;
+			Screen.instruction = true;
+		}
+		if(Screen.instruction && e.getX() >= 838 && e.getX()<=955 && e.getY() >=353&& e.getY() <=406)
+		{
+			System.out.println("howto");
+			Screen.instruction = false;
+			Screen.how_to_play_bool = true;
+		}
+		if(Screen.menu_bool && e.getX() >= 347 && e.getX()<=883 && e.getY() >=116&& e.getY() <=206)
+		{
+			System.out.println("Instruction");
+			Screen.menu_bool = false;
+			Screen.instruction = true;
+		}
+		if(Screen.menu_bool && e.getX() >= 340 && e.getX()<=731&& e.getY() >=233&& e.getY() <=285)
+		{
+			System.out.println("Credits");
+			Screen.menu_bool = false;
+			Screen.Credits = true;
+		}
+		
+		if(Screen.menu_bool && e.getX() >= 344 && e.getX()<=612 && e.getY() >=44 && e.getY() <=93)
+		{
+			System.out.println("START");
+			Screen.menu_bool = false;
+		}
+
+		if(!Screen.menu_bool && e.getX() >= 394 && e.getX() <= 446 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 1;
 		}
-		if(e.getX() >= 447 && e.getX() <= 499 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 447 && e.getX() <= 499 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 2;
 		}
-		if(e.getX() >= 500 && e.getX() <= 552 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 500 && e.getX() <= 552 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 3;
 			System.out.println("C");
 		}
-		if(e.getX() >= 553 && e.getX() <= 605 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 553 && e.getX() <= 605 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 4;
 			System.out.println("D");
 		}
-		if(e.getX() >= 606 && e.getX() <= 658 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 606 && e.getX() <= 658 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 5;
 			System.out.println("E");
 		}
-		if(e.getX() >= 659 && e.getX() <= 711 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 659 && e.getX() <= 711 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 6;
 			System.out.println("F");
 		}
-		if(e.getX() >= 712 && e.getX() <= 764 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 712 && e.getX() <= 764 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 7;
 			System.out.println("G");
 		}
-		if(e.getX() >= 765 && e.getX() <= 817 && e.getY() <= 501 && e.getY() >= 449)
+		if(!Screen.menu_bool &&e.getX() >= 765 && e.getX() <= 817 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 8;
 			System.out.println("H");
@@ -52,7 +95,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 		// clicks for the bottom row
 		//Y is alwyas 0 -416
 		// col1 X bound is 242 and 294. add 52 to both bounds for subsequent Columns 
-		if(e.getX() >= 242 && e.getX() <= 294 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 242 && e.getX() <= 294 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding)
 			{
@@ -61,7 +104,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col1");
 		}
-		if(e.getX() >= 294 && e.getX() <= 346 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 294 && e.getX() <= 346 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -70,7 +113,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col2");
 		}
-		if(e.getX() >= 346 && e.getX() <= 398 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 346 && e.getX() <= 398 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) {
 				Screen.newCol = 2;
@@ -78,7 +121,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col3");
 		}
-		if(e.getX() >= 398 && e.getX() <= 450 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 398 && e.getX() <= 450 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -88,7 +131,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col4");
 		}
-		if(e.getX() >= 450 && e.getX() <= 502 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 450 && e.getX() <= 502 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -97,7 +140,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col5");
 		}
-		if(e.getX() >= 502 && e.getX() <= 554 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 502 && e.getX() <= 554 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -106,7 +149,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col6");
 		}
-		if(e.getX() >= 554 && e.getX() <= 606 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 554 && e.getX() <= 606 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -115,7 +158,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col7");
 		}
-		if(e.getX() >= 606 && e.getX() <= 658 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 606 && e.getX() <= 658 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -124,7 +167,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col8");
 		}
-		if(e.getX() >= 658 && e.getX() <= 710 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 658 && e.getX() <= 710 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -133,7 +176,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col9");
 		}
-		if(e.getX() >= 710 && e.getX() <= 762 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 710 && e.getX() <= 762 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -142,7 +185,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col10");
 		}
-		if(e.getX() >= 762 && e.getX() <= 814 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 762 && e.getX() <= 814 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -151,7 +194,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col11");
 		}
-		if(e.getX() >= 814 && e.getX() <= 866 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 814 && e.getX() <= 866 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -160,7 +203,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col12");
 		}
-		if(e.getX() >= 866 && e.getX() <= 918 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 866 && e.getX() <= 918 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{
@@ -169,7 +212,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 			}
 			//			System.out.println("col13");
 		}
-		if(e.getX() >= 918 && e.getX() <= 970 && e.getY() >= 0 && e.getY() <= 416)
+		if(!Screen.menu_bool &&e.getX() >= 918 && e.getX() <= 970 && e.getY() >= 0 && e.getY() <= 416)
 		{
 			if(Screen.activelyAdding) 
 			{

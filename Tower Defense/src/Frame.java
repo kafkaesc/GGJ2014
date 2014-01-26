@@ -44,8 +44,9 @@ public class Frame extends JFrame
         Clip clip = AudioSystem.getClip();
         clip.open(audioIn);
         clip.loop(Clip.LOOP_CONTINUOUSLY);  // repeat forever
-
+        
 		Frame frame = new Frame();//runs frame
+		frame.setLayout(null);
 
 	}	
 }

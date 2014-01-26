@@ -53,7 +53,7 @@ public class Store
 		}
 	}
 	
-	public void draw(Graphics g, boolean[] av, boolean Gen_to_draw, boolean gameOverFlag)
+	public void draw(Graphics g, boolean[] av, boolean Gen_to_draw)
 	{
 		for(int i = 0; i<button.length;i++)
 		{

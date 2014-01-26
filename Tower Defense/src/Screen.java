@@ -2,6 +2,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,9 +19,22 @@ public class Screen extends JPanel implements Runnable
 	public static Image[] tileSet_Grass = new Image[100];
 	public static Image[] tileSet_Air   = new Image[100]; 
 	public static Image[] tileSet_res   = new Image[100];
+	public JLabel labelh;
+	public JLabel labelr;
+	public JLabel labelt;
+
+
+	public static Image gameOverim   = new ImageIcon("Resources/Screens/gameover.png").getImage();
+
+
 
 	public static boolean isFirst = true; // for the first run through
-	
+	public static boolean menu_bool = true;
+	public static boolean instruction = false;
+	public static boolean how_to_play_bool = false;
+	public static boolean Credits = false;
+
+
 	public static Point mse = new Point(0,0);
 
 	public Thread thread = new Thread(this);// the game loop
@@ -31,21 +45,28 @@ public class Screen extends JPanel implements Runnable
 	public static Store store;
 	public static Player player;
 	public static int prevCommand;
-	
+	public static int turn = 0;
+
 	public static boolean activelyAdding = false;
 	public static boolean selectedCol    = false;
 	public static boolean switchFlag = false;
 	public static boolean changeGen = true;
-	public static boolean gameOver = false;
+	public boolean gameOver = false;
 
 	public static int newUnit = 0;
 	public static int newCol  = 0;
 	public static int command = -1;
-	
+
 	private static boolean[] available;
-	
+
 	Image bg = new ImageIcon("Resources/Screens/gameborder-title.png").getImage();
-	
+	Image menu = new ImageIcon("Resources/Screens/menu.png").getImage();
+	Image intro = new ImageIcon("Resources/Screens/intro.png").getImage();
+	Image how_to_play = new ImageIcon("Resources/Screens/howtoplay.png").getImage();
+	Image CreditsImg = new ImageIcon("Resources/Screens/credits.png").getImage();
+
+
+
 	public Screen(Frame frame)   // for the screen
 	{
 		frame.addMouseListener(new KeyHandel());
@@ -57,12 +78,13 @@ public class Screen extends JPanel implements Runnable
 	{
 		room.block[r][c].groundID = enemyID;
 	}
-	
+
 	public void addUnit(int r, int c, int unitID)
 	{
-		room.block[r][c].groundID = unitID;
+		if(!checkForLife(7, newCol))
+			room.block[r][c].groundID = unitID;
 	}
-	
+
 	// r1, c1 => the attacker
 	// r2, c2 => the defender
 	public void attack(int r1, int c1, int r2, int c2)
@@ -216,9 +238,8 @@ public class Screen extends JPanel implements Runnable
 				}
 			}
 		}
-		repaint();
 	}
-	
+
 	public void enemyMarch(int r, int c)
 	{
 		if(room.block[r][c].groundID >= 30 && 
@@ -232,8 +253,10 @@ public class Screen extends JPanel implements Runnable
 					player.burn(6);
 				else if(room.block[r][c].groundID == Value.snowman02)
 					player.burn(16);
-				
+
 				room.block[r][c].groundID = floor.block[r][c].groundID;
+				labelh.setText("Health Points : " + player.checkLife());
+
 			}
 			else if(room.block[r+1][c].groundID >= 50 && 
 					room.block[r+1][c].groundID <= 59)
@@ -248,12 +271,25 @@ public class Screen extends JPanel implements Runnable
 			}
 		}
 	}
-	
+
+	public boolean checkForLife(int r, int c)
+	{
+		if(room.block[r][c].groundID >= 0 &&
+				room.block[r][c].groundID <= 2)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 	public void kill(int r, int c)
 	{
 		room.block[r][c].groundID = floor.block[r][c].groundID;
 	}
-	
+
 	public void unitMarch(int r, int c)
 	{
 		if(room.block[r][c].groundID >= 50 && 
@@ -283,7 +319,7 @@ public class Screen extends JPanel implements Runnable
 			}
 		}
 	}
-	
+
 	public int pickSnowmanID()
 	{
 		Random r = new Random();
@@ -331,10 +367,13 @@ public class Screen extends JPanel implements Runnable
 			for(int i = 1; i < 8; i++)
 				available[i] = true;
 		}
+		labelr.setText("TronCoins : " + player.checkResources());
 	}
-	
+
 	public void define()//
 	{
+		this.setLayout(null);
+
 		// game set-up
 		room   = new Room();  // creates a new room
 		floor  = new Room(); // the floor saves terrain pieces
@@ -343,7 +382,21 @@ public class Screen extends JPanel implements Runnable
 		store  = new Store();
 		player = new Player();
 		available = new boolean[8];
-		
+		labelh = new JLabel("Health Points : " + player.checkLife());
+		labelr = new JLabel("TronCoins : " + player.checkResources());
+		labelt = new JLabel("You have lived for " + turn + " turns");
+
+		add(labelh);
+		add(labelr);
+		add(labelt);
+
+		labelh.setBounds(226, 400, 150, 150);	
+		labelr.setBounds(850, 400, 150, 150);	
+		labelt.setBounds(525, 450, 300, 150);	
+
+
+		//		repaint();
+
 		for(int i = 0; i < 7; i++) available[i] = true;
 		available[7] = false;
 
@@ -371,52 +424,78 @@ public class Screen extends JPanel implements Runnable
 			define();               //run define
 			isFirst = false;        //set to not first anymore
 		}
+
 		g.setColor(new Color(204, 204, 204));
 		g.drawImage(bg, 0 , 0, 1220, 700, null);
 		g.setColor(new Color (50, 50, 50));
 		g.drawLine(room.block[0][0].x -1 ,0, room.block[0][0].x-1, room.block[room.worldHeight -1][0].y + room.blockSize); // draw right line
 		g.drawLine(room.block[0][room.worldWidth-1].x + room.blockSize ,0, room.block[0][room.worldWidth-1].x + room.blockSize, room.block[room.worldHeight -1][0].y + room.blockSize);//draw left line
 		g.drawLine(room.block[0][0].x, room.block[room.worldHeight-1][0].y + room.blockSize, room.block[0][room.worldWidth-1].x + room.blockSize,room.block[room.worldHeight-1][0].y +room.blockSize);//draw bottom line
-		room.draw(g);   // drawing the room
-		store.draw(g, available, changeGen, gameOver);  // drawing the store
+		if(menu_bool)
+		{
+			g.drawImage(menu, 245 , 0, 728, 416, null);
+		}
+		if(instruction)
+		{
+			g.drawImage(intro,245,0,728,416,null);
+		}
+		if(how_to_play_bool)
+		{
+			g.drawImage(how_to_play, 245,0,728,416,null);
+		}
+		if(Credits)
+		{
+			g.drawImage(CreditsImg, 245,0,728,416,null);
+		}
+		if(!menu_bool && !instruction && !how_to_play_bool && !Credits)
+		{
+			//			g.clearRect(245, 0, 728, 416);
+			room.draw(g);   // drawing the room
+		}
+		store.draw(g, available, changeGen);  // drawing the store
+
+		if(player.checkLife() == 0)
+		{
+			g.drawImage(gameOverim, 245, 0, 728, 416, null);
+		}
 	}
-	
+
 	public void run()      //runs the game
 	{
 		// get the random number generator
 		// create the first few random creatures
-	    addMouseListener(new KeyHandel());
+		addMouseListener(new KeyHandel());
 
 		Random r = new Random();
 		int enemyID[]     = new int[3];
 		int coordinates[] = new int[3];
 		for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
-		
+
 		boolean gameOver = false;
-		while(true && !gameOver)        // game loop
+		while(!gameOver)        // game loop
 		{
 
-			if(!isFirst)    // if not the first
+			if(!isFirst && !menu_bool && !how_to_play_bool && !instruction && !Credits)    // if not the first
 			{
 
 				for(int i = 0; i < room.block.length; i++)
 					for(int j = 0; j < room.block[i].length; j++)
 						unitMarch(i, j);
-				
+
 				for(int i = room.block.length - 1; i >= 0; i--)
 					for(int j = room.block[i].length - 1; j >= 0; j--)
 						enemyMarch(i, j);
-				
+
 				System.out.println("Life: " + player.checkLife() + 
 						", Money: " + player.checkResources());
-				
+
 				checkPrices();
-				
+
 				// randomly add new enemy units (they move next turn)
 				r = new Random();
 				for(int i = 0; i < 3; i++) enemyID[i] = pickSnowmanID();
 				for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
-				
+
 				addEnemy(0, coordinates[0], enemyID[0]);
 				addEnemy(0, coordinates[1], enemyID[1]);
 				addEnemy(0, coordinates[2], enemyID[2]);
@@ -425,9 +504,11 @@ public class Screen extends JPanel implements Runnable
 				{
 					System.out.print("");
 					if(player.checkLife() == 0) break;
-					
+
 					if(command == 1)
 					{
+						turn++;
+						labelt.setText("You have lived for " + turn + " turns");
 						turnOver = true;
 						repaint();
 					}
@@ -437,10 +518,9 @@ public class Screen extends JPanel implements Runnable
 						repaint();
 						player.loss(3);
 						changeGen = !changeGen;
-						repaint();
 						checkPrices();
 						available[1] = false;
-
+						repaint();
 					}
 					if(command == 3 && available[2])
 					{
@@ -449,20 +529,23 @@ public class Screen extends JPanel implements Runnable
 						addUnit(7, newCol, Value.basic);
 						activelyAdding = false;
 						selectedCol = false;
-						repaint();
 						player.loss(1);
 						checkPrices();
+						repaint();
+
 					}
 					if(command == 4 && available[3])
 					{
 						activelyAdding = true;
 						while(!selectedCol) { System.out.print(""); }
 						addUnit(7, newCol, Value.blowdryer);
+
 						activelyAdding = false;
 						selectedCol = false;
-						repaint();
 						player.loss(2);
 						checkPrices();
+						repaint();
+
 					}
 					if(command == 5 && available[4])
 					{
@@ -471,9 +554,10 @@ public class Screen extends JPanel implements Runnable
 						addUnit(7, newCol, Value.western);
 						activelyAdding = false;
 						selectedCol = false;
-						repaint();
 						player.loss(2);
 						checkPrices();
+						repaint();
+
 					}
 					if(command == 6 && available[5])
 					{
@@ -482,9 +566,10 @@ public class Screen extends JPanel implements Runnable
 						addUnit(7, newCol, Value.cherry);
 						activelyAdding = false;
 						selectedCol = false;
-						repaint();
 						player.loss(5);
 						checkPrices();
+						repaint();
+
 					}
 					if(command == 7 && available[6])
 					{
@@ -493,9 +578,10 @@ public class Screen extends JPanel implements Runnable
 						addUnit(7, newCol, Value.toaster0);
 						activelyAdding = false;
 						selectedCol = false;
-						repaint();
 						player.loss(2);
 						checkPrices();
+						repaint();
+
 					}
 					if(command == 8 && available[7])
 					{
@@ -507,11 +593,11 @@ public class Screen extends JPanel implements Runnable
 								if(room.block[j][i].groundID >= 50 &&
 										room.block[j][i].groundID <= 59)
 									newWealth -= 0.5;
-								
+
 								if(room.block[j][i].groundID >= 30 &&
 										room.block[j][i].groundID <= 39)
 									newWealth += 1.0;
-								
+
 								kill(j, i);
 								player.socialism((int)newWealth);
 							}
@@ -522,7 +608,12 @@ public class Screen extends JPanel implements Runnable
 					}
 					command = -1;
 				}
-				if(player.checkLife() == 0) break;
+				if(player.checkLife() == 0) 
+				{
+					gameOver = true;
+					repaint();
+					break;
+				}
 			}
 			repaint();          // repaints
 			try{
@@ -531,7 +622,10 @@ public class Screen extends JPanel implements Runnable
 
 			} catch(Exception e) {}
 		}
+		gameOver = true;
 		repaint();
+
 	}
+
 }
 

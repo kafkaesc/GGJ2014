@@ -29,12 +29,6 @@ public class Block extends Rectangle
 		setBounds(x, y, width, height);//sets bounds
 		this.airID    = airID;     //sets AirID
 	}
-	
-	public void GameOver(Graphics g)
-	{
-		g.drawImage(gameOver, 0 ,0, 728, 416, null);
-	}
-	// in charge of drawing icons for all pieces and terrain
 	public void draw(Graphics g, int id)
 	{
 		switch(id)
