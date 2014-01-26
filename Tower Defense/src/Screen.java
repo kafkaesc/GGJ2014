@@ -106,6 +106,7 @@ public class Screen extends JPanel implements Runnable
 				
 			}
 		}
+		repaint();
 	}
 	
 	public void enemyMarch(int r, int c)
@@ -318,6 +319,7 @@ public class Screen extends JPanel implements Runnable
 					}
 					command = -1;
 				}
+				if(player.checkLife() == 0) break;
 			}
 			repaint();          // repaints
 			try{
@@ -326,7 +328,6 @@ public class Screen extends JPanel implements Runnable
 
 			} catch(Exception e) {}
 		}
-
 	}
 }
 
