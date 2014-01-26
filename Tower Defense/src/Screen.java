@@ -486,8 +486,8 @@ public class Screen extends JPanel implements Runnable
 					for(int j = room.block[i].length - 1; j >= 0; j--)
 						enemyMarch(i, j);
 
-				System.out.println("Life: " + player.checkLife() + 
-						", Money: " + player.checkResources());
+//				System.out.println("Life: " + player.checkLife() + 
+//						", Money: " + player.checkResources());
 
 				checkPrices();
 

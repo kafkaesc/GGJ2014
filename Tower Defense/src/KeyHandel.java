@@ -8,7 +8,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("(x is " + e.getX() + ", Y is" + e.getY() + ")");
+//		System.out.println("(x is " + e.getX() + ", Y is" + e.getY() + ")");
 		// clicks for the menu
 		if(Screen.gameOver && e.getX() >= 246 && e.getX()<=974&& e.getY() >=0&& e.getY() <=416)
 		{
@@ -16,49 +16,49 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 		}
 		if(Screen.Credits && e.getX() >= 246 && e.getX()<=974&& e.getY() >=0&& e.getY() <=416)
 		{
-			System.out.println("menu");
+//			System.out.println("menu");
 			Screen.menu_bool = true;
 			Screen.Credits = false;
 		}
 		if(Screen.how_to_play_bool && e.getX() >= 645 && e.getX()<=945&& e.getY() >=356&& e.getY() <=402)
 		{
-			System.out.println("menu");
+//			System.out.println("menu");
 			Screen.how_to_play_bool = false;
 			Screen.menu_bool = true;
 		}
 		if(Screen.how_to_play_bool && e.getX() >= 266 && e.getX()<=393&& e.getY() >=350&& e.getY() <=400)
 		{
-			System.out.println("instructions");
+//			System.out.println("instructions");
 			Screen.how_to_play_bool = false;
 			Screen.instruction = true;
 		}
 		if(Screen.instruction && e.getX() >= 838 && e.getX()<=955 && e.getY() >=353&& e.getY() <=406)
 		{
-			System.out.println("howto");
+//			System.out.println("howto");
 			Screen.instruction = false;
 			Screen.how_to_play_bool = true;
 		}
 		if(Screen.menu_bool && e.getX() >= 347 && e.getX()<=883 && e.getY() >=116&& e.getY() <=206)
 		{
-			System.out.println("Instruction");
+//			System.out.println("Instruction");
 			Screen.menu_bool = false;
 			Screen.instruction = true;
 		}
 		if(Screen.menu_bool && e.getX() >= 340 && e.getX()<=731&& e.getY() >=233&& e.getY() <=285)
 		{
-			System.out.println("Credits");
+//			System.out.println("Credits");
 			Screen.menu_bool = false;
 			Screen.Credits = true;
 		}
 		if(Screen.menu_bool && e.getX() >= 358 && e.getX()<=551&& e.getY() >=321&& e.getY() <=380)
 		{
-			System.out.println("Exit");
+//			System.out.println("Exit");
 			System.exit(0);
 		}
 		
 		if(Screen.menu_bool && e.getX() >= 344 && e.getX()<=612 && e.getY() >=44 && e.getY() <=93)
 		{
-			System.out.println("START");
+//			System.out.println("START");
 			Screen.menu_bool = false;
 		}
 
@@ -73,32 +73,32 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 		if(!Screen.menu_bool &&e.getX() >= 500 && e.getX() <= 552 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 3;
-			System.out.println("C");
+//			System.out.println("C");
 		}
 		if(!Screen.menu_bool &&e.getX() >= 553 && e.getX() <= 605 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 4;
-			System.out.println("D");
+//			System.out.println("D");
 		}
 		if(!Screen.menu_bool &&e.getX() >= 606 && e.getX() <= 658 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 5;
-			System.out.println("E");
+//			System.out.println("E");
 		}
 		if(!Screen.menu_bool &&e.getX() >= 659 && e.getX() <= 711 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 6;
-			System.out.println("F");
+//			System.out.println("F");
 		}
 		if(!Screen.menu_bool &&e.getX() >= 712 && e.getX() <= 764 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 7;
-			System.out.println("G");
+//			System.out.println("G");
 		}
 		if(!Screen.menu_bool &&e.getX() >= 765 && e.getX() <= 817 && e.getY() <= 501 && e.getY() >= 449)
 		{
 			Screen.command = 8;
-			System.out.println("H");
+//			System.out.println("H");
 		}
 
 		// clicks for the bottom row
