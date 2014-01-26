@@ -18,8 +18,6 @@ public class Screen extends JPanel implements Runnable
 
 	public static boolean isFirst = true; // for the first run through
 	
-	public static boolean isRed = true;
-
 	public static Point mse = new Point(0,0);
 
 	public Thread thread = new Thread(this);// the game loop
@@ -28,6 +26,7 @@ public class Screen extends JPanel implements Runnable
 	public static Room floor;   // the floor characters move on
 	public static Save save;    // for save file
 	public static Store store;
+	public static Player player;
 	public static int prevCommand;
 	public static int command = -1;
 
@@ -55,11 +54,10 @@ public class Screen extends JPanel implements Runnable
 	{
 		if((room.block[r1][c1].groundID >= 30 &&
 			room.block[r1][c1].groundID <= 39) &&
-			room.block[r2][c2].groundID == 50)
+			room.block[r2][c2].groundID == Value.toaster0)
 		{
 			room.block[r1][c1].groundID = floor.block[r1][c1].groundID;
-			room.block[r2][c2].groundID = floor.block[r2][c2].groundID;
-
+			room.block[r2][c2].groundID = Value.toaster1;
 		}
 	}
 	
@@ -106,18 +104,19 @@ public class Screen extends JPanel implements Runnable
 
 	public void define()//
 	{
-		room = new Room();  // creates a new room
-		floor = new Room(); // the floor saves terrain pieces
-		save = new Save();  // creates a new save(levels)
+		// game set-up
+		room   = new Room();  // creates a new room
+		floor  = new Room(); // the floor saves terrain pieces
+		save   = new Save();  // creates a new save(levels)
 		save.loadFloor();
-		store = new Store();
+		store  = new Store();
+		player = new Player();
 
 		for(int i = 0; i < tileSet_Grass.length; i++)//runs for loop from 0 to length of grass tile
 		{
 			tileSet_Grass[i] = new ImageIcon("Resources/mars01.png").getImage();//gets the image
 			tileSet_Grass[i] = createImage(new FilteredImageSource(tileSet_Grass[i].getSource(),
 					new CropImageFilter(0, 52*i, 52, 52)));
-			//create and image and crops it to the size given in room
 		}
 
 		for(int i = 0; i < tileSet_Air.length; i++)
@@ -137,7 +136,7 @@ public class Screen extends JPanel implements Runnable
 			define();               //run define
 			isFirst = false;        //set to not first anymore
 		}
-		g.setColor(new Color(100,100,100));
+		g.setColor(new Color(204, 204, 204));
 		g.fillRect(0, 0, getWidth(), getHeight());//clears the rectangle
 		g.setColor(new Color (50,50,50));
 		g.drawLine(room.block[0][0].x -1 ,0, room.block[0][0].x-1, room.block[room.worldHeight -1][0].y + room.blockSize); // draw right line
@@ -176,12 +175,6 @@ public class Screen extends JPanel implements Runnable
 				// randomly add new enemy units (they move next turn)
 				r = new Random();
 				for(int i = 0; i < 3; i++) enemyID[i] = pickSnowmanID();
-//				System.out.println(enemyID[0]);
-//				System.out.println(enemyID[1]);
-//				System.out.println(enemyID[2]);
-
-
-
 				for(int i = 0; i < 3; i++) coordinates[i] = r.nextInt(14);
 				
 				addEnemy(0, coordinates[0], enemyID[0]);
@@ -193,14 +186,13 @@ public class Screen extends JPanel implements Runnable
 				{
 					temp1 = command;
 					System.out.print("");
-//					System.out.println("LOOK HERE : " + command + " and " + temp1);
 					if(temp1 != command)
 					{
-						isRed = !isRed;
+						player.switchGeneral();
 						wait = false;
 					}
 				}
-				addUnit(7, 4, 50);
+				addUnit(7, 4, Value.toaster0);
 			}
 			repaint();      // repaints
 			try{

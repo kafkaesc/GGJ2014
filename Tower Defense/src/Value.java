@@ -1,15 +1,21 @@
 
 public class Value //creates level
 {
-	public static int airAir = -1;      // every -1 is air
-	public static int mars1 = 0;        // 0 start ints are mars
+	public static int airAir = -1;
+	// early numbers are planet terrain
+	public static int mars1 = 0;
 	public static int mars2 = 1;
 	public static int mars3 = 2;
-	public static int groundCell = 2;
-	public static int snowman00  = 30;   // 3 start ints are snowgoons
-	public static int snowman01  = 31;
-	public static int snowman02  = 32;
-	public static int spaceman00 = 50;   // 5 start ints are spacemen
-	public static int spaceman01 = 51;
-	public static int spaceman02 = 52;
+	
+	// 3 start ints are snowgoons
+	public static int snowman00  = 30;  // black
+	public static int snowman01  = 31;  // blue
+	public static int snowman02  = 32;  // red
+	
+	// 5 start ints are spacemen
+	public static int basic      = 50;  // basic
+	public static int westerm    = 51;  // western
+	public static int blowdryer  = 52;  // blowdryer
+	public static int toaster0   = 53;  // toaster (none trapped)
+	public static int toaster1   = 54;  // toaster ( one trapped)	
 }

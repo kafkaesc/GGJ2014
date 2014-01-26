@@ -14,7 +14,6 @@ public class Save
 				Screen.floor.block[y][x].groundID = terrainSource;
 				Screen.room.block[y][x].groundID = terrainSource;
 				terrainSource = r.nextInt(3);
-				System.out.println(terrainSource + ", ");
 			}
 		}
 	}

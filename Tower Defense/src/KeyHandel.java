@@ -12,7 +12,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener
 		{
 			Screen.prevCommand = Screen.command;
 			Screen.command++;
-			System.out.println(Screen.command);
+			//System.out.println(Screen.command);
 		}
 	}
 
