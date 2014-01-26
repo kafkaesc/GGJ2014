@@ -9,7 +9,7 @@ public class Player {
 	Player()
 	{
 		life  = 100;
-		resources = 20;
+		resources = 8;
 		isRed = false;
 	}
 	
@@ -32,6 +32,16 @@ public class Player {
 	public void profit(int n)
 	{
 		resources += n;
+	}
+	
+	public void loss(int n)
+	{
+		resources -= n;
+	}
+	
+	public void socialism(int n)
+	{
+		resources = n;
 	}
 	
 	public void switchGeneral() 

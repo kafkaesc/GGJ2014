@@ -31,7 +31,17 @@ public class Screen extends JPanel implements Runnable
 	public static Store store;
 	public static Player player;
 	public static int prevCommand;
+	
+	public static boolean activelyAdding = false;
+	public static boolean selectedCol    = false;
+	public static boolean switchFlag = false;
+	boolean changeGen = true;
+
+	public static int newUnit = 0;
+	public static int newCol  = 0;
 	public static int command = -1;
+	
+	private static boolean[] available;
 	
 	Image bg = new ImageIcon("Resources/gameborder.png").getImage();
 	
@@ -65,6 +75,7 @@ public class Screen extends JPanel implements Runnable
 				// if the defender is a toaster0, the snowgoon is eaten
 				kill(r1, c1);
 				room.block[r2][c2].groundID = Value.toaster1;
+				player.profit(1);
 			}
 			else if(room.block[r2][c2].groundID == Value.toaster1)
 			{
@@ -72,6 +83,7 @@ public class Screen extends JPanel implements Runnable
 				// is eaten and the toaster disappears
 				kill(r1, c1);
 				kill(r2, c2);
+				player.profit(1);
 			}
 		}
 		else if(room.block[r1][c1].groundID >= 50 &&
@@ -80,7 +92,13 @@ public class Screen extends JPanel implements Runnable
 			// if the attacker is an astronaut
 			if(room.block[r1][c1].groundID == Value.basic)
 			{
-
+				if(room.block[r2][c2].groundID >= 30 &&
+						room.block[r2][c2].groundID <= 39)
+				{
+					kill(r1, c1);
+					kill(r2, c2);
+					player.profit(1);
+				}
 			}
 			if(room.block[r1][c1].groundID == Value.western)
 			{
@@ -89,21 +107,42 @@ public class Screen extends JPanel implements Runnable
 						room.block[r2][c2-1].groundID <= 39)
 				{
 					kill(r2, c2 - 1);
+					player.profit(1);
 				}
 				if(room.block[r2][c2].groundID >= 30 &&
 						room.block[r2][c2].groundID <= 39)
 				{
 					kill(r2, c2);
+					player.profit(1);
 				}
 				if(c2 + 1 < room.block[r2].length && room.block[r2][c2+1].groundID >= 30 &&
 						room.block[r2][c2+1].groundID <= 39)
 				{
 					kill(r2, c2 + 1);
+					player.profit(1);
 				}
 			}
 			if(room.block[r1][c1].groundID == Value.blowdryer)
 			{
-				
+				// check out of bounds and then FF
+				if(r2 >= 0 && room.block[r2][c2].groundID >= 30 && 
+						room.block[r2][c2].groundID <= 39)
+				{
+					kill(r2, c2);
+					player.profit(1);
+				}
+				if(r2 - 1 >= 0 && room.block[r2-1][c2].groundID >= 30 && 
+						room.block[r2-1][c2].groundID <= 39)
+				{
+					kill(r2 - 1, c2);
+					player.profit(1);
+				}
+				if(r2 - 2 >= 0 && room.block[r2-2][c2].groundID >= 30 && 
+						room.block[r2-2][c2].groundID <= 39)
+				{
+					kill(r2 - 2, c2);
+					player.profit(1);
+				}
 			}
 		}
 		repaint();
@@ -191,6 +230,38 @@ public class Screen extends JPanel implements Runnable
 		return snowmanID;
 	}
 
+	public void checkPrices()
+	{
+		int wallet = player.checkResources();
+		if (wallet == 0)
+		{
+			for(int i = 1; i < 8; i++)
+				available[i] = false;
+		}
+		if (wallet == 1)
+		{
+			for(int i = 1; i < 8; i++)
+				available[i] = false;
+			available[2] = true;
+		}
+		if (wallet >= 2 && wallet < 5)
+		{
+			for(int i = 2; i < 7; i++)
+				available[i] = true;
+			available[5] = false;
+		}
+		if (wallet >= 5 && wallet < 15)
+		{
+			for(int i = 1; i < 7; i++)
+				available[i] = true;
+		}
+		if (wallet >= 15 )
+		{
+			for(int i = 1; i < 8; i++)
+				available[i] = true;
+		}
+	}
+	
 	public void define()//
 	{
 		// game set-up
@@ -200,6 +271,10 @@ public class Screen extends JPanel implements Runnable
 		save.loadFloor();
 		store  = new Store();
 		player = new Player();
+		available = new boolean[8];
+		
+		for(int i = 0; i < 7; i++) available[i] = true;
+		available[7] = false;
 
 		for(int i = 0; i < tileSet_Grass.length; i++)//runs for loop from 0 to length of grass tile
 		{
@@ -232,11 +307,9 @@ public class Screen extends JPanel implements Runnable
 		g.drawLine(room.block[0][room.worldWidth-1].x + room.blockSize ,0, room.block[0][room.worldWidth-1].x + room.blockSize, room.block[room.worldHeight -1][0].y + room.blockSize);//draw left line
 		g.drawLine(room.block[0][0].x, room.block[room.worldHeight-1][0].y + room.blockSize, room.block[0][room.worldWidth-1].x + room.blockSize,room.block[room.worldHeight-1][0].y +room.blockSize);//draw bottom line
 		room.draw(g);   // drawing the room
-		store.draw(g);  // drawing the store
+		store.draw(g, available, changeGen);  // drawing the store
 	}
 	
-
-
 	public void run()      //runs the game
 	{
 		// get the random number generator
@@ -263,7 +336,10 @@ public class Screen extends JPanel implements Runnable
 					for(int j = room.block[i].length - 1; j >= 0; j--)
 						enemyMarch(i, j);
 				
-				System.out.println("Life: " + player.checkLife());
+				System.out.println("Life: " + player.checkLife() + 
+						", Money: " + player.checkResources());
+				
+				checkPrices();
 				
 				// randomly add new enemy units (they move next turn)
 				r = new Random();
@@ -273,7 +349,6 @@ public class Screen extends JPanel implements Runnable
 				addEnemy(0, coordinates[0], enemyID[0]);
 				addEnemy(0, coordinates[1], enemyID[1]);
 				addEnemy(0, coordinates[2], enemyID[2]);
-
 				boolean turnOver = false;
 				while(command == -1 && !turnOver && !gameOver)
 				{
@@ -285,37 +360,94 @@ public class Screen extends JPanel implements Runnable
 						turnOver = true;
 						repaint();
 					}
-					if(command == 2)
+					if(command == 2 && available[1])
 					{
 						player.switchGeneral();
 						repaint();
-					}
-					if(command == 3)
-					{
-						addUnit(7, 2, Value.basic);
+						player.loss(3);
+						changeGen = !changeGen;
 						repaint();
-					}
-					if(command == 4)
-					{
-						addUnit(7, 4, Value.blowdryer);
-						repaint();
-					}
-					if(command == 5)
-					{
-						addUnit(7, 6, Value.western);
-						repaint();
-					}
-					if(command == 6)
-					{
-						
-					}
-					if(command == 7)
-					{
-						
-					}
-					if(command == 8)
-					{
+						checkPrices();
+						available[1] = false;
 
+					}
+					if(command == 3 && available[2])
+					{
+						activelyAdding = true;
+						while(!selectedCol) { System.out.print(""); }
+						addUnit(7, newCol, Value.basic);
+						activelyAdding = false;
+						selectedCol = false;
+						repaint();
+						player.loss(1);
+						checkPrices();
+					}
+					if(command == 4 && available[3])
+					{
+						activelyAdding = true;
+						while(!selectedCol) { System.out.print(""); }
+						addUnit(7, newCol, Value.blowdryer);
+						activelyAdding = false;
+						selectedCol = false;
+						repaint();
+						player.loss(2);
+						checkPrices();
+					}
+					if(command == 5 && available[4])
+					{
+						activelyAdding = true;
+						while(!selectedCol) { System.out.print(""); }
+						addUnit(7, newCol, Value.western);
+						activelyAdding = false;
+						selectedCol = false;
+						repaint();
+						player.loss(2);
+						checkPrices();
+					}
+					if(command == 6 && available[5])
+					{
+						activelyAdding = true;
+						while(!selectedCol) { System.out.print(""); }
+						addUnit(7, newCol, Value.western);
+						activelyAdding = false;
+						selectedCol = false;
+						repaint();
+						player.loss(5);
+						checkPrices();
+					}
+					if(command == 7 && available[6])
+					{
+						activelyAdding = true;
+						while(!selectedCol) { System.out.print(""); }
+						addUnit(7, newCol, Value.toaster0);
+						activelyAdding = false;
+						selectedCol = false;
+						repaint();
+						player.loss(2);
+						checkPrices();
+					}
+					if(command == 8 && available[7])
+					{
+						double newWealth = player.checkResources();
+						for(int i = 0; i < 14; i++)
+						{
+							for(int j = 0; j < 8; j++)
+							{
+								if(room.block[j][i].groundID >= 50 &&
+										room.block[j][i].groundID <= 59)
+									newWealth -= 0.5;
+								
+								if(room.block[j][i].groundID >= 30 &&
+										room.block[j][i].groundID <= 39)
+									newWealth += 1.0;
+								
+								kill(j, i);
+								player.socialism((int)newWealth);
+							}
+						}
+						repaint();
+						player.loss(15);
+						checkPrices();
 					}
 					command = -1;
 				}
